@@ -1,7 +1,8 @@
 class CreateTeachents < ActiveRecord::Migration
   def change
     create_table :teachents do |t|
-      t.string :name
+      t.integer :user_id
+      t.string :course_name
       t.string :subject
       t.string :source
       t.datetime :started
