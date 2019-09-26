@@ -11,9 +11,9 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    flash[:notice] = "Hooray, Flash is working!"
+     flash[:notice] = "Hooray, Flash is working!"
     erb :welcome
-  end
+    end
 
   get "/binding" do
     binding.pry
