@@ -36,15 +36,32 @@ class UsersController < ApplicationController
 #   end
 # end
 
-#render the login form
+#render the login for
     get "/login" do
       erb :login
   end
 
 #recieve login form & create session
     post "/login" do
-      binding.pry
-  end
+      # #find the user
+       @user = User.find_by(email: params[:email])
+      # #verify the user then create session is the right user
+       if @user.authenticate(params[:password])
+      
+      #   #inform and redirect
+      #   #add key value pair to sessionhash
+      #   #actually logging in
+        session[:user_id] = @user.id
+       puts session
+        redirect "users/#{@user.id}"
+      end
+    end
+
+      # #user SHOW route
+       get '/users/:id' do
+         "this is the show route"
+       end
+  
 
     #signup 
       get "/signup" do

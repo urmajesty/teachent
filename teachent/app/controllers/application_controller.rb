@@ -15,7 +15,19 @@ class ApplicationController < Sinatra::Base
     erb :welcome
     end
 
-  get "/binding" do
-    binding.pry
-  end
+    helpers do
+
+      def logged_in?
+        !!my_user
+
+      end
+
+      def my_user
+#creates and assigns if user is found else nil
+        @my_user ||= User.find_by(session[:user_id])
+      end
+
+  # get "/binding" do
+  #   binding.pry
+   end
 end
