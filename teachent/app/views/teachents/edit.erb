@@ -1,9 +1,9 @@
-<#h1>Insert the form to edit an instance of your model here.</h1>
-<form class="" action="/journal_entries/<%= @teachent.id %>" method="post">
+
+<form class="" action="/teachents/<%= @teachent.id %>" method="post">
   <input type="hidden" name="_method" value="patch">
   <label for="course">Title:</label>
   <input type="text" name="course" value ="<%= @teachent.course %>">
-  <label for="subject">Content:</label>
+  <label for="subject">Subject:</label>
   <textarea name="subject" style="width:auto; height:auto;"><%= @teachent.subject %></textarea>
-  <input type="submit" name="" value="Edit Entry">
+  <input type="submit" name="" value="Edit Course">
 </form>

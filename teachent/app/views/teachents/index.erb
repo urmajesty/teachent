@@ -1,0 +1,9 @@
+
+<% @teachents.each do |teachent| %>
+   
+    <strong><%= teachent.course.upcase %></strong>
+    <p><%= teachent.subject.upcase %></p>
+    <p>By <%= teachent.user.name.upcase %></p>
+    <h5><a href="/teachents/<%= teachent.id %>"><%= teachent.created_at %></a></h5>
+    <br><br>
+  <% end %>

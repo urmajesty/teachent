@@ -1,21 +1,21 @@
-#<h1>This is the show page for an individual instance of your model.</h1>
 
-<h4><%= @teachent.title %></h4>
-<p><%= @teachent.content %></p>
-<p>Mood: <%= @teachent.mood %></p>
 
-<p>Created by: <%= @teachent.user.name %></p>
+<h3><%= @teachent.course.upcase %></h3>
+<p><%= @teachent.subject.upcase %></p>
 
-<p>created on <%= @teachent.formatted_created_at %></p>
+
+<p>Created by: <%= @teachent.user.name.upcase %></p>
+
+<p>Created on <%= @teachent.formatted_created_at %></p>
 
 
 <% if editor(@teachent) %>
   <a href="/teachents/<%= @teachent.id %>/edit">Edit Entry</a>
   <br><br>
   <form class="" action="/teachents/<%= @teachent.id %>" method="post">
-    #delete request
+    
     <input type="hidden" name="_method" value="DELETE">
-    <input type="submit" name="" value="Delete this Entry">
+    <h3><input type="submit" name="" value="Delete this Entry"><h3>
   </form>
 <% end %>
 

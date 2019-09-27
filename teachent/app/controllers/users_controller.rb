@@ -1,43 +1,12 @@
 class UsersController < ApplicationController
 
-#   # GET: /users
-#   get "/users" do
-#     erb :"/users/index.html"
-#   end
-
-#   # GET: /users/new
-#   get "/users/new" do
-#     erb :"/users/new.html"
-#   end
-
-#   # POST: /users
-#   post "/users" do
-#     redirect "/users"
-#   end
-
-#   # GET: /users/5
-#   get "/users/:id" do
-#     erb :"/users/show.html"
-#   end
-
-#   # GET: /users/5/edit
-#   get "/users/:id/edit" do
-#     erb :"/users/edit.html"
-#   end
-
-#   # PATCH: /users/5
-#   patch "/users/:id" do
-#     redirect "/users/:id"
-#   end
-
-#   # DELETE: /users/5/delete
-#   delete "/users/:id/delete" do
-#     redirect "/users"
-#   end
-# end
-
+  get '/logout' do
+    session.clear
+    redirect '/'
+  end
 #login page
     get "/login" do
+      authorized
       erb :login
   end
 
@@ -50,7 +19,7 @@ class UsersController < ApplicationController
 
       #   #actually logging in
         session[:user_id] = @user.id
-        flash [:message] = "Welcome, #{@user.name}!"
+        flash[:message] = "Welcome, #{@user.name}!"
         redirect "users/#{@user.id}"
     else
       flash[:errors] = "Invalid login information .  Please sign up or try again."
@@ -67,7 +36,6 @@ class UsersController < ApplicationController
 
    # POST: /users
    post "/users" do
-    binding.pry
      #redirect "/users"
      #Put thru the user only if they fill the form 
   
@@ -76,7 +44,7 @@ class UsersController < ApplicationController
       if @user.save
         #log them in
         session[:user_id] = @user.id 
-        flash[:message] = "Congratulations!  You have created your account!", #{@user.name}! Welcome!"
+        flash[:message] = "Congratulations!  You have created your account!"
         redirect "/users/#{@user.id}"
       else
         #inform them of error
@@ -94,9 +62,6 @@ class UsersController < ApplicationController
       erb :"/users/show"
     end
   
-    get '/logout' do
-      session.clear
-      redirect '/'
-    end
+  
   
   end

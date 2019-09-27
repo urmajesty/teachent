@@ -10,21 +10,20 @@ class ApplicationController < Sinatra::Base
     register Sinatra::Flash
   end
 
-  get "/" do
-     flash[:notice] = "Hooray, Flash is working!"
+   get "/" do
+  #    flash[:notice] = "Hooray, Flash is working!"
     erb :welcome
-    end
+     end
 
     helpers do
 
-      def activated
+      def authorized
         !!correct_user
-
       end
 
       def correct_user
         #creates and assigns if user is found else nil
-        @correct_user ||= User.find_by(session[:user_id])
+        @correct_user ||= User.find_by(id: session[:user_id])
       end
 
       def editor(course)
@@ -33,18 +32,14 @@ class ApplicationController < Sinatra::Base
 
       #user has to be logged in to pass otherwise...
       def unauthorized
-        if !activated
+        if !authorized
           flash[:errors] = "Please login to continue."
           redirect '/'
         end
       end
   
         #user is logged in
-      def authorized
-        if activated
-          redirect "/users/#{my_user.id}"
-        end
-      end
+          
 
   # get "/binding" do
   #   binding.pry
