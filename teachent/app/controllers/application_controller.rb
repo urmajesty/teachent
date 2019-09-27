@@ -23,7 +23,7 @@ class ApplicationController < Sinatra::Base
       end
 
       def correct_user
-#creates and assigns if user is found else nil
+        #creates and assigns if user is found else nil
         @correct_user ||= User.find_by(session[:user_id])
       end
 
@@ -44,6 +44,7 @@ class ApplicationController < Sinatra::Base
         if activated
           redirect "/users/#{my_user.id}"
         end
+      end
 
   # get "/binding" do
   #   binding.pry
