@@ -17,15 +17,33 @@ class ApplicationController < Sinatra::Base
 
     helpers do
 
-      def logged_in?
-        !!my_user
+      def activated
+        !!correct_user
 
       end
 
-      def my_user
+      def correct_user
 #creates and assigns if user is found else nil
-        @my_user ||= User.find_by(session[:user_id])
+        @correct_user ||= User.find_by(session[:user_id])
       end
+
+      def go_edit(course)
+        course.user == correct_user
+      end
+
+      #user has to be logged in to pass otherwise...
+      def unauthorized
+        if !activated
+          flash[:errors] = "Please login to continue."
+          redirect '/'
+        end
+      end
+  
+        #user is logged in
+      def authorized
+        if activated
+          redirect "/users/#{my_user.id}"
+        end
 
   # get "/binding" do
   #   binding.pry
