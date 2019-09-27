@@ -27,7 +27,7 @@ class ApplicationController < Sinatra::Base
         @correct_user ||= User.find_by(session[:user_id])
       end
 
-      def go_edit(course)
+      def editor(course)
         course.user == correct_user
       end
 

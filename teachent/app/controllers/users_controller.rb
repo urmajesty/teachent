@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 #   end
 # end
 
-#render the login for
+#login page
     get "/login" do
       erb :login
   end
@@ -45,24 +45,23 @@ class UsersController < ApplicationController
     post "/login" do
       # #find the user
        @user = User.find_by(email: params[:email])
-      # #verify the user then create session is the right user
-       if @user.authenticate(params[:password])
-      
-      #   #inform and redirect
-      #   #add key value pair to sessionhash
+      # need to have email && password to continue
+       if @user && @user.authenticate(params[:password])
+
       #   #actually logging in
         session[:user_id] = @user.id
-       puts session
+        flash [:message] = "Welcome, #{@user.name}!"
         redirect "users/#{@user.id}"
+    else
+      flash[:errors] = "Invalid login information .  Please sign up or try again."
+
+      redirect "/login"
       end
     end
 
-     
-
-  
-
     #signup 
       get "/signup" do
+
         erb :signup
     end
 
@@ -70,10 +69,34 @@ class UsersController < ApplicationController
    post "/users" do
     binding.pry
      #redirect "/users"
-   end
-
-     # #user SHOW route
-     get "/users/:id" do
-      "this is the show route"
+     #Put thru the user only if they fill the form 
+  
+      @user = User.new(params)
+        #if they have a valid input
+      if @user.save
+        #log them in
+        session[:user_id] = @user.id 
+        flash[:message] = "Congratulations!  You have created your account!", #{@user.name}! Welcome!"
+        redirect "/users/#{@user.id}"
+      else
+        #inform them of error
+        flash[:errors] = "Error creating account #{@user.errors.full_messages.to_sentence}"
+        redirect '/signup'
+      end
     end
+  
+    # SHOW route
+    get "/users/:id" do
+      # first
+      @user = User.find_by(id: params[:id])
+      unauthorized
+  
+      erb :"/users/show"
+    end
+  
+    get '/logout' do
+      session.clear
+      redirect '/'
+    end
+  
   end
