@@ -4,6 +4,7 @@ class UsersController < ApplicationController
     session.clear
     redirect '/'
   end
+  
 #login page
     get "/login" do
       authorized
