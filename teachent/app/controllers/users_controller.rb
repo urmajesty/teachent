@@ -57,13 +57,23 @@ class UsersController < ApplicationController
       end
     end
 
-      # #user SHOW route
-       get '/users/:id' do
-         "this is the show route"
-       end
+     
+
   
 
     #signup 
       get "/signup" do
+        erb :signup
     end
-end
+
+   # POST: /users
+   post "/users" do
+    binding.pry
+     #redirect "/users"
+   end
+
+     # #user SHOW route
+     get "/users/:id" do
+      "this is the show route"
+    end
+  end
