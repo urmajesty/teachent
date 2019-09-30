@@ -51,7 +51,7 @@ class TeachentsController < ApplicationController
     set_course
     if @teachent.user == correct_user && params[:subject] != "" && params[:course] != ""
     #  update course
-      @teachent.update(subject: params[:subject])
+      @teachent.update(subject: params[:subject]) && @teachent.update(course: params[:course])
       #redirect to show 
       redirect "/teachents/#{@teachent.id}"
     else
