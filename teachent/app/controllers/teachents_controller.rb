@@ -3,7 +3,7 @@ class TeachentsController < ApplicationController
   
 
   get '/teachents' do
-    @teachents = Teachent.all
+    @teachents = correct_user.teachents
     erb :'teachents/index'
   end
 
@@ -17,13 +17,13 @@ class TeachentsController < ApplicationController
   post '/teachents' do
     unauthorized
     #
-    if params[:subject] != ""
+    if params[:subject] != "" && params[:course] != ""
       # create course
       @teachent = Teachent.create(subject: params[:subject], user_id: correct_user.id, course: params[:course])
       flash[:message] = "Congratulations!  You've started a course!" if @teachent.id
       redirect "/teachents/#{@teachent.id}"
     else
-      flash[:errors] = "Something went wrong - you must provide subject for your entry."
+      flash[:errors] = "Something went wrong - all fields must be filled in."
       redirect '/teachents/new'
     end
   end
@@ -32,10 +32,6 @@ class TeachentsController < ApplicationController
     set_course
     erb :'/teachents/show'
   end
-
-
-
-
 
     #edit form(edit.erb)
   get '/teachents/:id/edit' do
@@ -53,7 +49,7 @@ class TeachentsController < ApplicationController
     unauthorized
     #  find course
     set_course
-    if @teachent.user == correct_user && params[:subject] != ""
+    if @teachent.user == correct_user && params[:subject] != "" && params[:course] != ""
     #  update course
       @teachent.update(subject: params[:subject])
       #redirect to show 

@@ -1,7 +1,7 @@
 
 <form class="" action="/teachents/<%= @teachent.id %>" method="post">
   <input type="hidden" name="_method" value="patch">
-  <label for="course">Title:</label>
+  <label for="course">Course:</label>
   <input type="text" name="course" value ="<%= @teachent.course %>">
   <label for="subject">Subject:</label>
   <textarea name="subject" style="width:auto; height:auto;"><%= @teachent.subject %></textarea>
